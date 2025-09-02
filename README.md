@@ -4,13 +4,11 @@ Blueprint macros that add `created_by`, `updated_by`, and `deleted_by` columns t
 
 ## Installation
 
-1) Require the package (published under `Gjentii`):
+If you see “could not be found in any version,” Composer cannot locate the package on Packagist. Use one of these options:
 
-```bash
-composer require gjentii/laravel-userstamps
-```
+1) Local path (fastest for development)
 
-For local development in an existing app without publishing to Packagist yet, add a path repository in your root `composer.json` (point the `url` to where this package folder lives relative to your app):
+Add a path repository in your app’s `composer.json` (the `url` points to where this package folder lives relative to your app):
 
 ```json
 {
@@ -22,18 +20,65 @@ For local development in an existing app without publishing to Packagist yet, ad
 
 Examples: `../user_stamps`, `../packages/laravel-userstamps`, or any relative/absolute path that matches your folder structure.
 
-Then require it as a normal semver version (this package declares `0.1.0` for local path installs):
+Then require it as a normal semver version (this package declares `0.1.0` for path installs):
 
 ```bash
 composer require gjentii/laravel-userstamps:^0.1.0
 ```
 
+2) Git/VCS repository (no Packagist)
+
+Push this repo to Git (GitHub, GitLab, etc.) and add a VCS repository in your app’s `composer.json`:
+
+```json
+{
+  "repositories": [
+    { "type": "vcs", "url": "https://github.com/your-username/laravel-userstamps.git" }
+  ]
+}
+```
+
+- Preferred: create a tag in this repo, e.g. `v0.1.0`, then:
+
+```bash
+composer require gjentii/laravel-userstamps:^0.1.0
+```
+
+- If you haven’t tagged yet, require the branch and allow dev stability:
+
+```bash
+composer require gjentii/laravel-userstamps:dev-main --no-update
+composer config minimum-stability dev
+composer config prefer-stable true
+composer update gjentii/laravel-userstamps -W
+```
+
+Alternative: alias the branch as a stable version without changing your project-wide stability:
+
+```json
+{
+  "require": {
+    "gjentii/laravel-userstamps": "dev-main as 0.1.0"
+  }
+}
+```
+
+3) Publish to Packagist (recommended for public use)
+
+- Push the repo to a public Git remote.
+- Create a Git tag: `v0.1.0` (Composer derives versions from tags).
+- Submit the repository URL on `https://packagist.org/packages/submit`.
+- Then in your app:
+
+```bash
+composer require gjentii/laravel-userstamps
+```
+
 The package uses Laravel auto-discovery. No manual provider registration needed.
 
 Troubleshooting Composer stability:
-- With the `version` field present, the package resolves as a stable release for path installs. If you still see stability errors:
-  - Ensure the consuming app defines the path repository correctly and runs `composer update -W` once.
-  - Alternatively, tag a git version (e.g., `v0.1.0`) and require that tag.
+- Path installs use the `version` field in this package and resolve as stable.
+- VCS/Packagist installs ignore the `version` field and use Git tags. Tag a release (e.g., `v0.1.0`) or require `dev-main` with appropriate stability settings as shown above.
 
 ## Usage
 
