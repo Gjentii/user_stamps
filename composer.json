@@ -14,6 +14,9 @@
       "providers": [
         "Gjentii\\UserStamps\\UserStampsServiceProvider"
       ]
+    },
+    "branch-alias": {
+      "dev-main": "0.1.x-dev"
     }
   },
   "require": {
