@@ -10,23 +10,30 @@ Blueprint macros that add `created_by`, `updated_by`, and `deleted_by` columns t
 composer require gjentii/laravel-userstamps
 ```
 
-For local development in an existing app without publishing to Packagist yet, add a path repository in your root `composer.json`:
+For local development in an existing app without publishing to Packagist yet, add a path repository in your root `composer.json` (point the `url` to where this package folder lives relative to your app):
 
 ```json
 {
   "repositories": [
-    { "type": "path", "url": "packages/laravel-userstamps" }
+    { "type": "path", "url": "../user_stamps" }
   ]
 }
 ```
 
-Then require it:
+Examples: `../user_stamps`, `../packages/laravel-userstamps`, or any relative/absolute path that matches your folder structure.
+
+Then require it as a normal semver version (this package declares `0.1.0` for local path installs):
 
 ```bash
-composer require gjentii/laravel-userstamps:* --dev
+composer require gjentii/laravel-userstamps:^0.1.0
 ```
 
 The package uses Laravel auto-discovery. No manual provider registration needed.
+
+Troubleshooting Composer stability:
+- With the `version` field present, the package resolves as a stable release for path installs. If you still see stability errors:
+  - Ensure the consuming app defines the path repository correctly and runs `composer update -W` once.
+  - Alternatively, tag a git version (e.g., `v0.1.0`) and require that tag.
 
 ## Usage
 

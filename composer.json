@@ -3,6 +3,7 @@
   "description": "Laravel Blueprint macros for userStamps and dropUserStamps (created_by, updated_by, deleted_by).",
   "type": "library",
   "license": "MIT",
+  "version": "0.1.0",
   "autoload": {
     "psr-4": {
       "Gjentii\\UserStamps\\": "src/"
